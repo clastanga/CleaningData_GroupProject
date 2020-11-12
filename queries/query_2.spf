@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>datajobs</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>-3939480589477095535</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8mb4</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGtCwwZGhscHSEoLDA0OFUkbnVsbNMNDg8QFBhXTlMua2V5
+			c1pOUy5vYmplY3RzViRjbGFzc6MREhOAAoADgASjFRYXgAWABoAI
+			gAxUdHlwZVRyb3dzVGtleXNfECZTZWxlY3Rpb25EZXRhaWxUeXBl
+			UHJpbWFyeUtleWVkRGV0YWlsc9MNDg8eHyCgoIAH0iIjJCVaJGNs
+			YXNzbmFtZVgkY2xhc3Nlc18QE05TTXV0YWJsZURpY3Rpb25hcnmj
+			JCYnXE5TRGljdGlvbmFyeVhOU09iamVjdNIODykroSqACYAL0g8t
+			Li9ZTlMuc3RyaW5ngApSSUTSIiMxMl8QD05TTXV0YWJsZVN0cmlu
+			Z6MxMydYTlNTdHJpbmfSIiM1Nl5OU011dGFibGVBcnJheaM1NydX
+			TlNBcnJhedIiIyY5oiYnAAgAEQAaACQAKQAyADcASQBMAFEAUwBh
+			AGcAbgB2AIEAiACMAI4AkACSAJYAmACaAJwAngCjAKgArQDWAN0A
+			3gDfAOEA5gDxAPoBEAEUASEBKgEvATEBMwE1AToBRAFGAUkBTgFg
+			AWQBbQFyAYEBhQGNAZIAAAAAAAACAQAAAAAAAAA6AAAAAAAAAAAA
+			AAAAAAABlQ==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {990, 649}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>drop table companies;
+
+create table companies (
+	ID int not null primary key,
+	position varchar(225),
+	company varchar(225),
+	reviews int not null,
+	size varchar(225),
+	industry text,
+	location varchar(225),
+	state varchar(225),
+	zip_code int,
+	description text
+	);
+	
+
+
+select * from companies;
+
+#Data Science 
+
+drop view data_analyst_size_industry;
+
+#create view Data_Science_size_industry as
+select count(position), industry, size, description,
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size#, description
+order by rank_by_size asc, count(position) desc;
+
+#Data Analyst
+
+select count(industry) as counts, industry, size
+from companies
+where position regexp 'Data Analyst|Data analyst|data analyst|Analyst|analyst'
+group by industry, size
+order by size desc, counts desc;
+
+#Engineer|engineer|Programmer|programmer|Developer|developer
+
+select count(industry) as counts, industry, size
+from companies
+where position regexp 'Engineer|engineer|Programmer|programmer|Developer|developer'
+group by industry, size
+order by size desc, counts desc;
+
+select distinct state, count(position)
+from companies
+where position regexp 'Engineer|engineer|Programmer|programmer|Developer|developer'
+group by state
+order by count(position) desc;
+
+select distinct industry, count(position)
+from companies
+where position regexp 'Engineer|engineer|Programmer|programmer|Developer|developer'
+group by industry
+order by count(position) desc;
+
+
+select * from companies
+order by position_id;
+
+
+drop view 23andme_alldata; 
+
+create view 23andme as
+select * from companies
+where company regexp "23";</string>
+			<key>table</key>
+			<string>companies</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>294</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size, #description,
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size#, description
+order by rank_by_size asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size, description,
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size, description
+order by rank_by_size asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size, #description,
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by rank_by_size asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size, description,
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by rank_by_size asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size, description
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size, description
+order by rank_by_size asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size, description
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by rank_by_size asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size,
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by rank_by_size asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size,
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by size asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size,
+rank() over(order by count(position) desc) as position_rank
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by position_rank asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size,
+rank() over(order by count(position) desc) as position_rank
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by size_rank asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size,
+rank() over(order by count(position) desc) as size_rank
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by size_rank asc, count(position) desc</string>
+		<string>#create view Data_Science_size_industry as
+select count(position), industry, size,
+rank() over(partition by size order by count(position) desc) as size_rank
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by size_rank asc, count(position) desc</string>
+		<string>create view Data_Science_size_industry as
+select count(position), industry, size,
+rank() over(partition by size order by count(position) desc) as size_rank
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size
+order by size_rank asc, count(position) desc</string>
+		<string>create view Data_Analyst_size_industry as
+select count(position), industry, size,
+rank() over(partition by size order by count(position) desc) as size_rank
+from companies
+where position regexp 'Data Analyst|Data analyst|data analyst|Analyst|analyst' 
+group by industry, size
+order by size_rank asc, count(position) desc</string>
+		<string>#Data Science 
+
+drop view data_analyst_size_industry</string>
+		<string>drop view Data_Analyst_size_industry</string>
+		<string>#create view Data_Analyst_size_industry as
+select count(position), industry, size,
+rank() over(partition by size order by count(position) desc) as size_rank
+from companies
+where position regexp 'Data Analyst|Data analyst|data analyst|Analyst|analyst' 
+group by industry, size
+order by size_rank asc, count(position) desc</string>
+		<string>#Data Science 
+
+drop view Data_Analyst_size_industry</string>
+		<string>#create view Data_Analyst_size_industry as
+select count(position), industry, size,
+rank() over(partition by size order by count(position) desc) as size_rank
+from companies
+where position regexp 'Data Analyst|Data analyst|data analyst|Analyst|analyst' 
+group by industry, size
+order by size_rank asc</string>
+		<string>#create view Data_Analyst_size_industry as
+select count(position), industry, size,
+rank() over(partition by size order by count(position) desc) as size_rank
+from companies
+where position regexp 'Data Analyst|Data analyst|data analyst|Analyst|analyst' 
+group by industry, size
+order by count(position) desc, size_rank asc</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.22</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>datajobs</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>-3939480589477095535</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8mb4</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGoCwwXGBkaHiVVJG51bGzTDQ4PEBMWV05TLmtleXNaTlMu
+			b2JqZWN0c1YkY2xhc3OiERKAAoADohQVgASABYAHVHR5cGVUcm93
+			c18QHVNlbGVjdGlvbkRldGFpbFR5cGVOU0luZGV4U2V00hsPHB1c
+			TlNSYW5nZUNvdW50EACABtIfICEiWiRjbGFzc25hbWVYJGNsYXNz
+			ZXNaTlNJbmRleFNldKIjJFpOU0luZGV4U2V0WE5TT2JqZWN00h8g
+			JidcTlNEaWN0aW9uYXJ5oiYkAAgAEQAaACQAKQAyADcASQBMAFEA
+			UwBcAGIAaQBxAHwAgwCGAIgAigCNAI8AkQCTAJgAnQC9AMIAzwDR
+			ANMA2ADjAOwA9wD6AQUBDgETASAAAAAAAAACAQAAAAAAAAAoAAAA
+			AAAAAAAAAAAAAAABIw==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {1005, 647}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>select count(position), industry, size, description,
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Scientist|Data scientist|data scientist|Scientist|scientist' 
+group by industry, size#, description
+order by rank_by_size asc, count(position) desc;
+
+drop view data_engineer_final;
+
+create view Data_analyst_final as
+select industry, count(position) as num_positions, size, description, state,
+rank() over(partition by size order by count(position) desc) as rank_by_size
+from companies
+where position regexp 'Data Analyst|Data analyst|data analyst|Analyst|analyst' 
+group by industry#, description
+order by rank_by_size asc#, num_positions desc, rank_by_size
+;
+
+#data scientist
+select *
+from data_scientist_final 
+order by num_positions Desc
+limit 10;
+
+select *
+from data_scientist_final
+where size like 'small' 
+limit 10;
+
+#data analyst
+select *
+from data_analyst_final 
+order by num_positions Desc
+limit 10;
+
+select *
+from data_analyst_final
+where size like 'small' 
+limit 10;
+
+#data engineer
+select *
+from data_analyst_final 
+order by num_positions Desc
+limit 10;
+
+select *
+from data_engineer_final
+where size like 'small' 
+limit 10;
+
+
+
+#select distinct industry, count(position) as num_positions, size, description,
+#rank() over(partition by count(position) order by size) as rank_by_position
+#from companies
+#where position regexp 'Engineer|engineer|Programmer|programmer|Developer|developer' 
+#group by industry, description
+#order by num_positions desc, num_positions desc</string>
+			<key>table</key>
+			<string>data_engineer_size</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>294</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>#data engineer
+select *
+from data_engineer_final 
+order by num_positions Desc
+limit 10</string>
+		<string>#data scientist
+select *
+from data_scientist_final 
+order by num_positions Desc
+limit 10</string>
+		<string>#data analyst
+select *
+from data_analyst_final 
+order by num_positions Desc
+limit 10</string>
+		<string>select *
+from data_scientist_final
+where size like 'small' 
+limit 10</string>
+		<string>select *
+from data_scientist_final
+where size like 'small'</string>
+		<string>select *
+from data_scientist_final
+where size like 'small' 
+group by rank_by_size</string>
+		<string>#data scientist
+select *
+from data_scientist_final 
+group by rank_by_size
+order by num_positions Desc
+limit 10</string>
+		<string>#data scientist
+select *
+from data_scientist_final 
+order by num_positions
+limit 10</string>
+		<string>#data scientist
+select *
+from data_scientist_final 
+limit 10</string>
+		<string>#data scientist
+select *
+from data_scientist_final</string>
+		<string>#data scientist
+select *
+from data_scientist_final 
+group by rank_by_size</string>
+		<string>select *
+from data_engineer_final
+where size like 'small' 
+group by rank_by_size</string>
+		<string>#data engineer
+select *
+from data_engineer_final 
+group by rank_by_size
+limit 10</string>
+		<string>#data analyst
+
+select *
+from data_analyst_final 
+group by rank_by_size
+limit 10</string>
+		<string>#data scientist
+select *
+from data_scientist_final 
+group by rank_by_size
+limit 10</string>
+		<string>#data engineer
+select *
+from data_engineer_final 
+group by rank_by_size</string>
+		<string>#data analyst
+
+select *
+from data_analyst_final 
+group by rank_by_size</string>
+		<string>select *
+from data_analyst_final
+where size like 'small' 
+group by rank_by_size</string>
+		<string>select *
+from data_scientist_final 
+group by rank_by_size</string>
+		<string>select *
+from data_scientist_final
+where size like 'very big' 
+group by rank_by_size</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.22</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
